@@ -1,6 +1,9 @@
 package ph.edu.dlsu.ian_ona.asteroids2;
 
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
+import android.graphics.Rect;
+import android.util.Log;
 import android.view.SurfaceHolder;
 
 public class MainThread extends Thread {
@@ -9,7 +12,10 @@ public class MainThread extends Thread {
     private SurfaceHolder surfaceHolder;
     private GamePanel gamePanel;
     private boolean running;
+
     public static Canvas canvas;
+
+    private final String TAG = Constants.getTAG(this);
 
     public MainThread (SurfaceHolder surfaceHolder, GamePanel gamePanel) {
         super();
