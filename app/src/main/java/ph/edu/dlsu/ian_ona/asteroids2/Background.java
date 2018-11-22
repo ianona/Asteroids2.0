@@ -40,8 +40,7 @@ public class Background implements GameObject{
 
     @Override
     public void update() {
-        float speed = height/15000.0f;
-        srcY -= 2.5;
+        srcY -= 4;
         if (srcY <= 0)
             srcY = height * 2;
     }

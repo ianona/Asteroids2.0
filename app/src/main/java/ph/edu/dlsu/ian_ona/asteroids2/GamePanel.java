@@ -5,8 +5,10 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.Paint;
 import android.graphics.Point;
 import android.graphics.Rect;
+import android.support.constraint.solver.widgets.Rectangle;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.Surface;
@@ -15,6 +17,7 @@ import android.view.SurfaceView;
 
 public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
     private MainThread mainThread;
+    private Rect textRect = new Rect();
 
     private SpaceShip player;
     private Point playerPoint;
@@ -42,7 +45,7 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
         playerPoint = new Point(Constants.SCREEN_WIDTH/2,5*Constants.SCREEN_HEIGHT/6);
         bg = new Background(this, BitmapFactory.decodeResource(getResources(),R.drawable.bg));
 
-        asteroidManager = new AsteroidManager(500, BitmapFactory.decodeResource(getResources(),R.drawable.asteroids));
+        asteroidManager = new AsteroidManager(BitmapFactory.decodeResource(getResources(),R.drawable.asteroids));
         ammoManager = new AmmoManager(BitmapFactory.decodeResource(getResources(),R.drawable.ammo));
 
         motionSensor = new MotionSensor();
@@ -53,7 +56,8 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
 
     public void reset() {
         playerPoint = new Point(Constants.SCREEN_WIDTH/2,5*Constants.SCREEN_HEIGHT/6);
-        asteroidManager = new AsteroidManager(500, BitmapFactory.decodeResource(getResources(),R.drawable.asteroids));
+        player.reset();
+        asteroidManager = new AsteroidManager(BitmapFactory.decodeResource(getResources(),R.drawable.asteroids));
         ammoManager = new AmmoManager(BitmapFactory.decodeResource(getResources(),R.drawable.ammo));
         movingShip = false;
         bg = new Background(this, BitmapFactory.decodeResource(getResources(),R.drawable.bg));
@@ -96,13 +100,14 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
                     movingShip = true;
                 */
                 if (gameOver && System.currentTimeMillis() - gameOverTime >= 2000) {
-                    reset();
                     gameOver = false;
+                    reset();
                     motionSensor.newGame();
                 }
 
                 // to do: code for shooting
-                ammoManager.shoot(playerPoint.x,playerPoint.y);
+                if (!gameOver)
+                    ammoManager.shoot(playerPoint.x,playerPoint.y-player.getPos().height()/2);
 
                 break;
             case MotionEvent.ACTION_MOVE:
@@ -130,10 +135,14 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
             player.update(playerPoint);
             asteroidManager.update();
             ammoManager.update();
+
+            // check for collisions between ammo and asteroid
             for (Ammo a: ammoManager.getShots()){
                 if (!a.isHit())
                     asteroidManager.ammoCollide(a);
             }
+
+            // check for collision between ship and asteroid
             if (asteroidManager.shipCollide(player)) {
                 gameOver = true;
                 gameOverTime = System.currentTimeMillis();
@@ -144,12 +153,12 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
 
     public void cleanUp(){
         for (int i = ammoManager.getShots().size()-1;i>=0;i--){
-            if (ammoManager.getShots().get(i).isHit())
+            if (ammoManager.getShots().get(i).isHit() || ammoManager.getShots().get(i).getPos().bottom < 0)
                 ammoManager.getShots().remove(i);
         }
 
         for (int i = asteroidManager.getAsteroids().size()-1;i>=0;i--){
-            if (asteroidManager.getAsteroids().get(i).isDestroyed())
+            if (asteroidManager.getAsteroids().get(i).isDestroyed() || asteroidManager.getAsteroids().get(i).getPos().top > Constants.SCREEN_HEIGHT)
                 asteroidManager.getAsteroids().remove(i);
         }
     }
@@ -162,9 +171,17 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
         if (gameOver) {
             canvas.drawColor(Color.BLACK);
         }
-        player.draw(canvas);
         asteroidManager.draw(canvas);
+        player.draw(canvas);
         ammoManager.draw(canvas);
+
+        if (gameOver) {
+            Paint p = new Paint();
+            p.setTextSize(200);
+            p.setColor(Color.WHITE);
+            p.setTypeface(Constants.PIXEL_FONT);
+            drawCenterText(canvas, p, "Game Over // Score: "+ asteroidManager.getScore());
+        }
     }
 
     public void useMotionSensors(long elapsedTime){
@@ -188,5 +205,16 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
             playerPoint.y = 0;
         else if (playerPoint.y > Constants.SCREEN_HEIGHT)
             playerPoint.y = Constants.SCREEN_HEIGHT;
+    }
+
+    private void drawCenterText(Canvas canvas, Paint paint, String text) {
+        paint.setTextAlign(Paint.Align.LEFT);
+        canvas.getClipBounds(textRect);
+        int cHeight = textRect.height();
+        int cWidth = textRect.width();
+        paint.getTextBounds(text, 0, text.length(), textRect);
+        float x = cWidth / 2f - textRect.width() / 2f - textRect.left;
+        float y = cHeight / 2f + textRect.height() / 2f - textRect.bottom;
+        canvas.drawText(text, x, y, paint);
     }
 }

@@ -1,6 +1,7 @@
 package ph.edu.dlsu.ian_ona.asteroids2;
 
 import android.content.Context;
+import android.graphics.Typeface;
 
 public class Constants {
     // singleton for constant values
@@ -8,6 +9,7 @@ public class Constants {
     public static int SCREEN_HEIGHT;
     public static Context CURRENT_CONTEXT;
     public static long INIT_TIME;
+    public static Typeface PIXEL_FONT;
 
     public static String getTAG(Object o) {
         StackTraceElement[] elements = Thread.currentThread().getStackTrace();

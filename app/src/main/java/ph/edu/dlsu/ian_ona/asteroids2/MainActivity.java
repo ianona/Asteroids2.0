@@ -1,6 +1,7 @@
 package ph.edu.dlsu.ian_ona.asteroids2;
 
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
@@ -20,6 +21,7 @@ public class MainActivity extends AppCompatActivity {
         getWindowManager().getDefaultDisplay().getMetrics(dm);
         Constants.SCREEN_WIDTH = dm.widthPixels;
         Constants.SCREEN_HEIGHT = dm.heightPixels;
+        Constants.PIXEL_FONT = Typeface.createFromAsset(getAssets(),  "fonts/thinpixel.ttf");
         setContentView(R.layout.activity_main);
     }
 

@@ -5,6 +5,7 @@ import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
+import android.util.Log;
 
 public class MotionSensor implements SensorEventListener{
     private SensorManager manager;
@@ -16,6 +17,8 @@ public class MotionSensor implements SensorEventListener{
 
     private float[] orientation = new float[3];
     private float[] startOrientation = null;
+
+    private final String TAG = Constants.getTAG(this);
 
     public MotionSensor(){
         manager = (SensorManager) Constants.CURRENT_CONTEXT.getSystemService(Context.SENSOR_SERVICE);
@@ -59,7 +62,19 @@ public class MotionSensor implements SensorEventListener{
                 SensorManager.getOrientation(RMatrix, orientation);
                 if (startOrientation == null) {
                     startOrientation = new float[orientation.length];
+
+                    // use this code for auto-adjust to phone-position
+                    /*
                     System.arraycopy(orientation, 0, startOrientation, 0, orientation.length);
+                    for (int i=0;i<orientation.length;i++){
+                        Log.d(TAG,"ORIENTATION: "+orientation[i]);
+                    }
+                    */
+
+                    // flat-down phone position
+                    orientation[0] = (float)-2.1787436;
+                    orientation[1] = (float)-0.06648044;
+                    orientation[2] = (float)0.01628869;
                 }
             }
         }

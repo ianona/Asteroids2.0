@@ -33,15 +33,11 @@ public class AmmoManager {
 
         // tinker with this to adjust speed as time passes
         float speed = (float)(Math.sqrt((startTime - initTime)/10000.0)) * Constants.SCREEN_HEIGHT/4000.0f;
-
         for (Ammo a : shots) {
-            if (!a.isHit())
-                a.decrementY(speed * elapsedTime * 2);
-        }
-
-        // lol try to remove ammo that's offscreen
-        if (!shots.isEmpty() && shots.get(shots.size()-1).getPos().top >= Constants.SCREEN_HEIGHT) {
-            shots.remove(shots.size()-1);
+            if (!a.isHit()) {
+                //a.decrementY(speed * elapsedTime * 2);
+                a.decrementY(speed * elapsedTime);
+            }
         }
     }
 

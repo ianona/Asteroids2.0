@@ -1,6 +1,7 @@
 package ph.edu.dlsu.ian_ona.asteroids2;
 
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -22,6 +23,8 @@ public class Asteroid implements GameObject {
     private Random rand = new Random();
 
     private boolean destroyed = false;
+    private boolean exploded = false;
+    private long explodeTime;
 
     public Asteroid(Rect pos, Bitmap bmp, int asteroidType) {
         this.pos = pos;
@@ -50,6 +53,14 @@ public class Asteroid implements GameObject {
         return destroyed;
     }
 
+    public boolean isExploded() {
+        return exploded;
+    }
+
+    public void setExploded(boolean exploded) {
+        this.exploded = exploded;
+    }
+
     public Rect getPos() {
         return pos;
     }
@@ -57,6 +68,8 @@ public class Asteroid implements GameObject {
     public void incrementY (float y) {
         pos.top +=y;
         pos.bottom +=y;
+        if (pos.top > Constants.SCREEN_HEIGHT)
+            destroyed = true;
     }
 
     public boolean shipCollide (SpaceShip player) {
@@ -73,16 +86,42 @@ public class Asteroid implements GameObject {
     public void draw(Canvas canvas) {
         if (!destroyed)
             canvas.drawBitmap(bmp,src,pos,null);
-
-        /*
-        Paint paint = new Paint();
-        paint.setColor(Color.BLUE);
-        canvas.drawRect(rectangle, paint);
-        */
     }
 
     @Override
     public void update() {
 
+    }
+
+    public void updateExplosion(){
+        long elapsedTime = System.currentTimeMillis() - explodeTime;
+        if (elapsedTime >= 100 && elapsedTime < 200){
+            height = (int)(bmp.getHeight() * .15);
+            width = (int)(bmp.getWidth() * .15);
+            srcX = (int)(bmp.getWidth() * .07);
+            srcY = (int)(bmp.getHeight() * .14);
+            src = new Rect(srcX,srcY,srcX+ width,srcY+height);
+            pos.set(pos.left,pos.top,pos.left+width,pos.top+height);
+        } else if (elapsedTime >= 200 && elapsedTime < 300) {
+            height = (int)(bmp.getHeight() * .21);
+            width = (int)(bmp.getWidth() * .21);
+            srcX = (int)(bmp.getWidth() * .22);
+            srcY = (int)(bmp.getHeight() * .14);
+            src = new Rect(srcX,srcY,srcX+ width,srcY+height);
+            pos.set(pos.left,pos.top,pos.left+width,pos.top+height);
+        } else if (elapsedTime >= 300){
+            setDestroyed(true);
+        }
+    }
+
+    public void explode(){
+        bmp = BitmapFactory.decodeResource(Constants.CURRENT_CONTEXT.getResources(),R.drawable.ammo);
+        height = (int)(bmp.getHeight() * .07);
+        width = (int)(bmp.getWidth() * .07);
+        srcX = 0;
+        srcY = (int)(bmp.getHeight() * .14);
+        src = new Rect(srcX,srcY,srcX+ width,srcY+height);
+        pos.set(pos.left,pos.top,pos.left+width,pos.top+height);
+        explodeTime = System.currentTimeMillis();
     }
 }
