@@ -113,6 +113,10 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
             case MotionEvent.ACTION_MOVE:
                 if (movingShip && !gameOver)
                     playerPoint.set((int)event.getX(),(int)event.getY());
+                if (!gameOver && ammoManager.isBuffered()) {
+                    ammoManager.shoot(playerPoint.x,playerPoint.y-player.getPos().height()/2);
+                    ammoManager.setShotBuffer(System.currentTimeMillis());
+                }
                 break;
             case MotionEvent.ACTION_UP:
                 movingShip = false;
@@ -197,14 +201,14 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
             playerPoint.y -= Math.abs(ySpeed*elapsedTime) > 5 ? ySpeed*elapsedTime : 0;
         }
 
-        if (playerPoint.x < 0)
-            playerPoint.x = 0;
-        else if (playerPoint.x > Constants.SCREEN_WIDTH)
-            playerPoint.x = Constants.SCREEN_WIDTH;
+        if (playerPoint.x < 0 + player.getPos().width()/2)
+            playerPoint.x = 0 + player.getPos().width()/2;
+        else if (playerPoint.x > Constants.SCREEN_WIDTH - player.getPos().width()/2)
+            playerPoint.x = Constants.SCREEN_WIDTH - player.getPos().width()/2;
         if (playerPoint.y < 0)
             playerPoint.y = 0;
-        else if (playerPoint.y > Constants.SCREEN_HEIGHT)
-            playerPoint.y = Constants.SCREEN_HEIGHT;
+        else if (playerPoint.y > Constants.SCREEN_HEIGHT - player.getPos().height()/2 - 30)
+            playerPoint.y = Constants.SCREEN_HEIGHT - player.getPos().height()/2 - 30;
     }
 
     private void drawCenterText(Canvas canvas, Paint paint, String text) {

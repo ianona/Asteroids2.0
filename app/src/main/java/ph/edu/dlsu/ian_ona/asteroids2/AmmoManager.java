@@ -12,6 +12,7 @@ public class AmmoManager {
     private ArrayList<Ammo> shots;
     private long startTime, initTime;
     private Bitmap bmp;
+    private long shotBuffer;
 
     private final String TAG = Constants.getTAG(this);
 
@@ -19,6 +20,7 @@ public class AmmoManager {
         shots = new ArrayList<>();
         this.bmp = bmp;
         startTime = initTime = System.currentTimeMillis();
+        shotBuffer = 0;
     }
 
     public ArrayList<Ammo> getShots() {
@@ -50,7 +52,15 @@ public class AmmoManager {
 
     public void shoot(int x, int y){
         Point p = new Point();
-        p.set(x,y);
-        shots.add(0, new Ammo(p,bmp));
+        p.set(x, y);
+        shots.add(0, new Ammo(p, bmp));
+    }
+
+    public boolean isBuffered(){
+        return System.currentTimeMillis() - shotBuffer >= 250;
+    }
+
+    public void setShotBuffer(long shotBuffer) {
+        this.shotBuffer = shotBuffer;
     }
 }
