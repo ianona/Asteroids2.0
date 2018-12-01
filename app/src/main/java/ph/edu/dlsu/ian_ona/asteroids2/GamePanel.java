@@ -10,10 +10,13 @@ import android.graphics.Point;
 import android.graphics.Rect;
 import android.support.constraint.solver.widgets.Rectangle;
 import android.util.Log;
+import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.Surface;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
+import android.view.View;
+import android.os.*;
 
 public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
     private MainThread mainThread;
@@ -90,6 +93,17 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
         }
     }
 
+    Handler mHandler;
+    Runnable mAction = new Runnable() {
+        @Override public void run() {
+            if (!gameOver){
+                ammoManager.shoot(playerPoint.x,playerPoint.y-player.getPos().height()/2);
+                //ammoManager.setShotBuffer(System.currentTimeMillis());
+            }
+            mHandler.postDelayed(this, 250);
+        }
+    };
+
     @Override
     public boolean onTouchEvent (MotionEvent event) {
         switch (event.getAction()) {
@@ -105,21 +119,26 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
                     motionSensor.newGame();
                 }
 
-                // to do: code for shooting
-                if (!gameOver)
+                if (!gameOver){
                     ammoManager.shoot(playerPoint.x,playerPoint.y-player.getPos().height()/2);
+                    //ammoManager.setShotBuffer(System.currentTimeMillis());
+                }
 
+                if (mHandler != null) return true;
+                mHandler = new Handler();
+                mHandler.postDelayed(mAction, 250);
                 break;
             case MotionEvent.ACTION_MOVE:
+                /*
                 if (movingShip && !gameOver)
                     playerPoint.set((int)event.getX(),(int)event.getY());
-                if (!gameOver && ammoManager.isBuffered()) {
-                    ammoManager.shoot(playerPoint.x,playerPoint.y-player.getPos().height()/2);
-                    ammoManager.setShotBuffer(System.currentTimeMillis());
-                }
+                */
                 break;
             case MotionEvent.ACTION_UP:
                 movingShip = false;
+                if (mHandler == null) return true;
+                mHandler.removeCallbacks(mAction);
+                mHandler = null;
                 break;
         }
         return true;
@@ -221,4 +240,6 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
         float y = cHeight / 2f + textRect.height() / 2f - textRect.bottom;
         canvas.drawText(text, x, y, paint);
     }
+
+
 }

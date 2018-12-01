@@ -1,9 +1,11 @@
 package ph.edu.dlsu.ian_ona.asteroids2;
 
+import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Point;
 import android.graphics.Rect;
+import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -12,7 +14,7 @@ public class AmmoManager {
     private ArrayList<Ammo> shots;
     private long startTime, initTime;
     private Bitmap bmp;
-    private long shotBuffer;
+    private SoundEffects se;
 
     private final String TAG = Constants.getTAG(this);
 
@@ -20,7 +22,7 @@ public class AmmoManager {
         shots = new ArrayList<>();
         this.bmp = bmp;
         startTime = initTime = System.currentTimeMillis();
-        shotBuffer = 0;
+        se = new SoundEffects(Constants.CURRENT_CONTEXT);
     }
 
     public ArrayList<Ammo> getShots() {
@@ -38,7 +40,8 @@ public class AmmoManager {
         for (Ammo a : shots) {
             if (!a.isHit()) {
                 //a.decrementY(speed * elapsedTime * 2);
-                a.decrementY(speed * elapsedTime);
+                //a.decrementY(speed * elapsedTime);
+                a.decrementY((float)25.0);
             }
         }
     }
@@ -54,13 +57,6 @@ public class AmmoManager {
         Point p = new Point();
         p.set(x, y);
         shots.add(0, new Ammo(p, bmp));
-    }
-
-    public boolean isBuffered(){
-        return System.currentTimeMillis() - shotBuffer >= 250;
-    }
-
-    public void setShotBuffer(long shotBuffer) {
-        this.shotBuffer = shotBuffer;
+        se.playLaser();
     }
 }

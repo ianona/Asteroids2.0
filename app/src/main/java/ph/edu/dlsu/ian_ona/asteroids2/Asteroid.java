@@ -3,31 +3,28 @@ package ph.edu.dlsu.ian_ona.asteroids2;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
-import android.graphics.Color;
-import android.graphics.Paint;
-import android.graphics.Point;
 import android.graphics.Rect;
-import android.util.Log;
 
 import java.util.Random;
 
-public class Asteroid implements GameObject {
-    //private int x,y;
-    private int height,width;
-    private Bitmap bmp;
-    private Rect src, pos;
-    private int asteroidType;
-    private int srcX, srcY;
+public abstract class Asteroid implements GameObject {
+    protected int height,width;
+    protected Bitmap bmp;
+    protected Rect src, pos;
+    protected int asteroidType;
+    protected int srcX, srcY;
+    protected int health;
+    protected int damage;
 
-    private final String TAG = Constants.getTAG(this);
-    private Random rand = new Random();
+    protected final String TAG = Constants.getTAG(this);
+    protected Random rand = new Random();
 
-    private boolean destroyed = false;
-    private boolean exploded = false;
-    private long explodeTime;
+    protected boolean destroyed = false;
+    protected boolean exploded = false;
+    protected long explodeTime;
+    protected float speed;
 
-    public Asteroid(Rect pos, Bitmap bmp, int asteroidType) {
-        this.pos = pos;
+    protected Asteroid(Bitmap bmp, int asteroidType){
         this.bmp = bmp;
 
         // asteroidType determines size of asteroid
@@ -36,13 +33,15 @@ public class Asteroid implements GameObject {
         // 4: small (default)
         this.asteroidType = asteroidType;
 
-        // for small asteroids
-        height = bmp.getHeight()/4;
-        width = bmp.getWidth()/6;
-        srcX = (bmp.getWidth()*5)/6;
-        srcY = rand.nextInt(asteroidType) * height;
-
-        src = new Rect(srcX,srcY,srcX+ width,srcY+height);
+        double prob = rand.nextDouble();
+        // 30% chance to spawn slow asteroid
+        if (prob < .30)
+            speed = (float)6.0;
+        // 70% chance to spawn fast asteroid
+        else if (prob < .70)
+            speed = (float)15.0;
+        else
+            speed = (float)8.0;
     }
 
     public void setDestroyed(boolean destroyed) {
@@ -65,9 +64,24 @@ public class Asteroid implements GameObject {
         return pos;
     }
 
+    public int getDamage() {
+        return damage;
+    }
+
+    public int getHealth() {
+        return health;
+    }
+
     public void incrementY (float y) {
         pos.top +=y;
         pos.bottom +=y;
+        if (pos.top > Constants.SCREEN_HEIGHT)
+            destroyed = true;
+    }
+
+    public void incrementY () {
+        pos.top += speed;
+        pos.bottom += speed;
         if (pos.top > Constants.SCREEN_HEIGHT)
             destroyed = true;
     }
@@ -80,17 +94,6 @@ public class Asteroid implements GameObject {
         if (!destroyed)
             return Rect.intersects(this.pos,shot.getPos());
         return false;
-    }
-
-    @Override
-    public void draw(Canvas canvas) {
-        if (!destroyed)
-            canvas.drawBitmap(bmp,src,pos,null);
-    }
-
-    @Override
-    public void update() {
-
     }
 
     public void updateExplosion(){
@@ -123,5 +126,16 @@ public class Asteroid implements GameObject {
         src = new Rect(srcX,srcY,srcX+ width,srcY+height);
         pos.set(pos.left,pos.top,pos.left+width,pos.top+height);
         explodeTime = System.currentTimeMillis();
+    }
+
+    @Override
+    public void draw(Canvas canvas) {
+        if (!destroyed)
+            canvas.drawBitmap(bmp,src,pos,null);
+    }
+
+    @Override
+    public void update() {
+
     }
 }

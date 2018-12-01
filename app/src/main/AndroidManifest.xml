@@ -18,6 +18,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".GameActivity"></activity>
+        <service android:name=".BGMusicService"></service>
     </application>
 
 </manifest>

@@ -64,17 +64,21 @@ public class MotionSensor implements SensorEventListener{
                     startOrientation = new float[orientation.length];
 
                     // use this code for auto-adjust to phone-position
-                    /*
+
                     System.arraycopy(orientation, 0, startOrientation, 0, orientation.length);
+                    /*
                     for (int i=0;i<orientation.length;i++){
                         Log.d(TAG,"ORIENTATION: "+orientation[i]);
                     }
                     */
 
+
+                    /*
                     // flat-down phone position
                     orientation[0] = (float)-2.1787436;
                     orientation[1] = (float)-0.06648044;
                     orientation[2] = (float)0.01628869;
+                    */
                 }
             }
         }

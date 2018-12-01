@@ -1,22 +1,20 @@
 package ph.edu.dlsu.ian_ona.asteroids2;
 
-import android.content.res.AssetManager;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
-import android.graphics.Typeface;
 import android.util.Log;
 
 import java.util.ArrayList;
-import java.util.Locale;
 import java.util.Random;
 
 public class AsteroidManager {
     private ArrayList<Asteroid> asteroids;
     private long startTime, initTime;
     private Bitmap bmp;
+    private SoundEffects se;
 
     private final String TAG = Constants.getTAG(this);
     private Random random = new Random();
@@ -27,11 +25,15 @@ public class AsteroidManager {
     int prev = -1;
     int interval;
 
+    private int minAsteroids;
+
     public AsteroidManager (Bitmap bmp) {
         asteroids = new ArrayList<>();
         this.bmp = bmp;
         startTime = initTime = System.currentTimeMillis();
         gameOver = false;
+        minAsteroids = 3;
+        se = new SoundEffects(Constants.CURRENT_CONTEXT);
     }
 
     public ArrayList<Asteroid> getAsteroids() {
@@ -41,9 +43,10 @@ public class AsteroidManager {
     public boolean shipCollide (SpaceShip player) {
         for (Asteroid a:asteroids) {
             if (!a.isDestroyed() && !a.isExploded() && a.shipCollide(player) && player.isBuffered()) {
-                player.takeDmg(15);
+                player.takeDmg(a.getDamage());
                 a.explode();
                 a.setExploded(true);
+                se.playExplosion();
                 if (player.getHealth() <= 0) {
                     player.setDmgBuffer(0);
                     finalScore = (int)((System.currentTimeMillis()-initTime)/1000.0);
@@ -60,6 +63,7 @@ public class AsteroidManager {
                 a.explode();
                 ammo.setHit(true);
                 a.setExploded(true);
+                se.playExplosion();
             }
         }
     }
@@ -76,25 +80,37 @@ public class AsteroidManager {
         float speed = (float)(Math.sqrt((startTime - initTime)/10000.0)) * Constants.SCREEN_HEIGHT/10000.0f;
         for (Asteroid a : asteroids) {
             if (!a.isExploded())
-                a.incrementY(speed * elapsedTime);
+                a.incrementY();
+                //a.incrementY(speed * elapsedTime);
             else a.updateExplosion();
         }
 
         // generate asteroids at 2 second intervals
         interval = (int)((System.currentTimeMillis()-initTime)/1000.0);
+
         if (interval % 2 == 0 && interval!=prev) {
-            generateAsteroids(random.nextInt(3)+3);
+            // every 60 seconds, increase min. # of asteroids
+            if (interval % 60 == 0)
+                minAsteroids++;
+            generateAsteroids(random.nextInt(minAsteroids)+(minAsteroids));
             prev = interval;
         }
     }
 
     public void generateAsteroids(int aNum){
         for (int i = 0; i < aNum; i++) {
-            int height = bmp.getHeight()/4;
-            int width = bmp.getWidth()/6;
-            int curY = (-height * 3) + random.nextInt(height * 2);
+            int max_height = bmp.getHeight();
+            int curY = (-max_height * 3) + random.nextInt(max_height * 2);
             int curX = random.nextInt(Constants.SCREEN_WIDTH);
-            asteroids.add(0, new Asteroid(new Rect(curX,curY,curX+width,curY+height), bmp, 4));
+
+            // 30% chance to generate medium asteroid
+            if (random.nextDouble() < 0.30)
+                asteroids.add(0, new MediumAsteroid(curX, curY, bmp, 2));
+            // 10% chance to generate large asteroid
+            else if (random.nextDouble() < 0.10)
+                asteroids.add(0, new LargeAsteroid(curX, curY, bmp, 1));
+            else // generate small asteroid
+                asteroids.add(0, new SmallAsteroid(curX, curY, bmp, 4));
         }
     }
 
