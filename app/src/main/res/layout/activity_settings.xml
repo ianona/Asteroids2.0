@@ -6,6 +6,15 @@
     android:layout_height="match_parent"
     tools:context=".SettingsActivity">
 
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"
+        android:src="@drawable/bgmenu"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="16dp" />
+
     <TextView
         android:id="@+id/mapText"
         android:layout_width="wrap_content"
@@ -14,6 +23,7 @@
         android:text="Map"
         android:textSize="60sp"
         android:padding="10dp"
+        android:textColor="@android:color/background_light"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
@@ -24,6 +34,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Space Ship"
+        android:textColor="@android:color/background_light"
         android:textSize="60sp"
         android:padding="10dp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -84,6 +95,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="1dp"
         android:text="Tilt Options"
+        android:textColor="@android:color/background_light"
         android:textSize="60sp"
         android:padding="10dp"
         app:layout_constraintEnd_toEndOf="parent"
