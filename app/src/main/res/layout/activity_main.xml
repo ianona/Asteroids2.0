@@ -47,16 +47,16 @@
         android:layout_height="150sp"
         android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
-        android:layout_marginTop="650dp"
+        android:layout_marginBottom="50dp"
         android:adjustViewBounds="true"
         android:background="@android:color/transparent"
         android:cropToPadding="false"
-        android:onClick="startGame"
+        android:onClick="didTapButton"
         android:scaleType="fitXY"
         android:src="@drawable/play"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <ImageButton
         android:id="@+id/settingButton"
@@ -64,17 +64,17 @@
         android:layout_height="70sp"
         android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
+        android:layout_marginBottom="85dp"
         android:layout_marginEnd="270dp"
-        android:layout_marginTop="700dp"
         android:adjustViewBounds="true"
         android:background="@android:color/transparent"
         android:cropToPadding="false"
         android:onClick="gotoSettings"
         android:scaleType="fitXY"
         android:src="@drawable/tool"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <ImageButton
         android:id="@+id/soundButton"
@@ -82,17 +82,17 @@
         android:layout_height="70sp"
         android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
+        android:layout_marginBottom="85dp"
         android:layout_marginStart="270dp"
-        android:layout_marginTop="700dp"
         android:adjustViewBounds="true"
         android:background="@android:color/transparent"
         android:cropToPadding="false"
         android:onClick="toggleSound"
         android:scaleType="fitXY"
         android:src="@drawable/sound"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
         android:id="@+id/titleText"

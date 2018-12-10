@@ -17,6 +17,8 @@ import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -74,6 +76,18 @@ public class MainActivity extends AppCompatActivity {
 
         initializeMenu();
         updateScoreView();
+    }
+
+    public void didTapButton(View view) {
+        ImageButton playButton = findViewById(R.id.playButton);
+        final Animation myAnim = AnimationUtils.loadAnimation(this, R.anim.bounce);
+
+        // Use bounce interpolator with amplitude 0.2 and frequency 20
+        MyBounceInterpolator interpolator = new MyBounceInterpolator(0.2, 20);
+        myAnim.setInterpolator(interpolator);
+
+        playButton.startAnimation(myAnim);
+
     }
 
     public void startGame(View view){
