@@ -1,10 +1,12 @@
 package ph.edu.dlsu.ian_ona.asteroids2;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
+import android.preference.PreferenceManager;
 import android.util.Log;
 
 public class MotionSensor implements SensorEventListener{
@@ -63,22 +65,32 @@ public class MotionSensor implements SensorEventListener{
                 if (startOrientation == null) {
                     startOrientation = new float[orientation.length];
 
-                    // use this code for auto-adjust to phone-position
-
-                    System.arraycopy(orientation, 0, startOrientation, 0, orientation.length);
-                    /*
-                    for (int i=0;i<orientation.length;i++){
-                        Log.d(TAG,"ORIENTATION: "+orientation[i]);
+                    SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(Constants.CURRENT_CONTEXT);
+                    switch (sharedPref.getInt(Constants.CURRENT_CONTEXT.getString(R.string.pref_motion), R.string.tilt1)){
+                        case R.string.tilt1:
+                            // regular phone position
+                            Log.d(TAG,"REGULAR");
+                            startOrientation[0] = (float)-2.720837;
+                            startOrientation[1] = (float)-0.73023206;
+                            startOrientation[2] = (float)-0.004654862;
+                            break;
+                        case R.string.tilt2:
+                            // flat-down phone position
+                            Log.d(TAG,"TOP-DOWN");
+                            startOrientation[0] = (float)-2.1787436;
+                            startOrientation[1] = (float)-0.06648044;
+                            startOrientation[2] = (float)0.01628869;
+                            break;
+                        case R.string.tilt3:
+                            // use this code for auto-adjust to phone-position
+                            Log.d(TAG,"AUTO");
+                            System.arraycopy(orientation, 0, startOrientation, 0, orientation.length);
+                            break;
                     }
-                    */
 
-
-                    /*
-                    // flat-down phone position
-                    orientation[0] = (float)-2.1787436;
-                    orientation[1] = (float)-0.06648044;
-                    orientation[2] = (float)0.01628869;
-                    */
+                    for (int i=0;i<startOrientation.length;i++){
+                        Log.d(TAG,"START ORIENTATION: "+startOrientation[i]);
+                    }
                 }
             }
         }

@@ -18,8 +18,9 @@ public class AsteroidManager {
 
     private final String TAG = Constants.getTAG(this);
     private Random random = new Random();
-    private int finalScore;
+    private int score;
     private boolean gameOver;
+    private boolean paused;
 
     // for asteroid spawning, a little sphagetti
     int prev = -1;
@@ -32,7 +33,9 @@ public class AsteroidManager {
         this.bmp = bmp;
         startTime = initTime = System.currentTimeMillis();
         gameOver = false;
-        minAsteroids = 3;
+        paused = false;
+        minAsteroids = 4;
+        score = 0;
         se = new SoundEffects(Constants.CURRENT_CONTEXT);
     }
 
@@ -47,9 +50,10 @@ public class AsteroidManager {
                 a.explode();
                 a.setExploded(true);
                 se.playExplosion();
+                se.playShipHit();
                 if (player.getHealth() <= 0) {
                     player.setDmgBuffer(0);
-                    finalScore = (int)((System.currentTimeMillis()-initTime)/1000.0);
+                    //finalScore = (int)((System.currentTimeMillis()-initTime)/1000.0);
                     return true;
                 }
             }
@@ -60,10 +64,24 @@ public class AsteroidManager {
     public void ammoCollide (Ammo ammo) {
         for (Asteroid a:asteroids) {
             if (!a.isDestroyed() && !a.isExploded() && a.ammoCollide(ammo)) {
-                a.explode();
+                a.receiveDamage(ammo.getDmg());
                 ammo.setHit(true);
-                a.setExploded(true);
-                se.playExplosion();
+                se.playAsteroidHit();
+                if (a.getHealth() <= 0) {
+                    a.explode();
+                    a.setExploded(true);
+                    switch (a.getAsteroidType()){
+                        case 1:
+                            se.playLargeExplosion();
+                            break;
+                        case 2:
+                            se.playMedExplosion();
+                            break;
+                        case 4:
+                            se.playExplosion();
+                            break;
+                    }
+                }
             }
         }
     }
@@ -85,15 +103,30 @@ public class AsteroidManager {
             else a.updateExplosion();
         }
 
-        // generate asteroids at 2 second intervals
+        // code block that executes every 1 second
         interval = (int)((System.currentTimeMillis()-initTime)/1000.0);
-
-        if (interval % 2 == 0 && interval!=prev) {
-            // every 60 seconds, increase min. # of asteroids
-            if (interval % 60 == 0)
+        if (interval % 1 == 0 && interval!=prev) {
+            // every 60 seconds, increase min. # of asteroids && generate wave
+            if (interval % 60 == 0 && interval != 0) {
                 minAsteroids++;
-            generateAsteroids(random.nextInt(minAsteroids)+(minAsteroids));
+                generateWave(minAsteroids);
+                se.playWaveIncoming();
+            }
+            // generate asteroids at 2 second intervals
+            if (interval % 2 == 0 && interval != 0)
+                generateAsteroids(random.nextInt(minAsteroids)+(minAsteroids));
+
+            score++;
             prev = interval;
+        }
+    }
+
+    public void generateWave(int aNum){
+        for (int i = 0; i < aNum; i++) {
+            int max_height = bmp.getHeight();
+            int curY = (-max_height * 3) + random.nextInt(max_height * 2);
+            int curX = random.nextInt(Constants.SCREEN_WIDTH);
+            asteroids.add(0, new LargeAsteroid(curX, curY, bmp, 1));
         }
     }
 
@@ -123,11 +156,27 @@ public class AsteroidManager {
         p.setColor(Color.WHITE);
         p.setTypeface(Constants.PIXEL_FONT);
         if (!gameOver)
-            canvas.drawText(""+(int)((System.currentTimeMillis()-initTime)/1000.0), 50,  100, p);
+            canvas.drawText(""+score, 50,  100, p);
+            //canvas.drawText(""+(int)((System.currentTimeMillis()-initTime)/1000.0), 50,  100, p);
     }
 
     public int getScore(){
-        gameOver = true;
-        return finalScore;
+        return score;
+    }
+
+    public void decrementScore(){
+        score--;
+    }
+
+    public void setGameOver(boolean b){
+        this.gameOver = b;
+    }
+
+    public void pause(){
+        paused = true;
+    }
+
+    public void resume(){
+        paused = false;
     }
 }

@@ -16,12 +16,20 @@ public class SoundEffects{
         this.context = context;
 
         //ADD SOUND HERE
-        //LASER SOUND
         MediaPlayer mp = MediaPlayer.create(context, R.raw.lasersound);
         medialist.add(mp);
         mp = MediaPlayer.create(context, R.raw.explosion);
         medialist.add(mp);
-        //REST OF THE SOUNDS HERE
+        mp = MediaPlayer.create(context, R.raw.mediumexplosion);
+        medialist.add(mp);
+        mp = MediaPlayer.create(context, R.raw.largeexplosion);
+        medialist.add(mp);
+        mp = MediaPlayer.create(context, R.raw.asteroiddamage);
+        medialist.add(mp);
+        mp = MediaPlayer.create(context, R.raw.waveincoming);
+        medialist.add(mp);
+        mp = MediaPlayer.create(context, R.raw.spaceshiphit);
+        medialist.add(mp);
     }
 
     public void playLaser(){
@@ -30,5 +38,25 @@ public class SoundEffects{
 
     public void playExplosion(){
         medialist.get(1).start();
+    }
+
+    public void playMedExplosion(){
+        medialist.get(2).start();
+    }
+
+    public void playLargeExplosion(){
+        medialist.get(3).start();
+    }
+
+    public void playAsteroidHit(){
+        medialist.get(4).start();
+    }
+
+    public void playWaveIncoming(){
+        medialist.get(5).start();
+    }
+
+    public void playShipHit(){
+        medialist.get(6).start();
     }
 }

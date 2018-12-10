@@ -12,6 +12,7 @@ public class Ammo implements  GameObject {
     private Bitmap bmp;
     private Rect src, pos;
     private int srcX, srcY;
+    private int dmg;
 
     private final String TAG = Constants.getTAG(this);
 
@@ -25,6 +26,7 @@ public class Ammo implements  GameObject {
         width = (int)(bmp.getWidth() * .03);
         srcX = 0;
         srcY = 0;
+        dmg = 15;
 
         src = new Rect(srcX,srcY,srcX+ width,srcY+height);
         pos = new Rect(p.x,p.y,p.x+width,p.y+height);
@@ -34,6 +36,9 @@ public class Ammo implements  GameObject {
         return pos;
     }
 
+    public int getDmg() {
+        return dmg;
+    }
 
     public void setHit(boolean hit) {
         this.hit = hit;
@@ -46,10 +51,6 @@ public class Ammo implements  GameObject {
     public void decrementY (float y) {
         pos.top -=y;
         pos.bottom -=y;
-    }
-
-    public boolean shipCollide (SpaceShip player) {
-        return Rect.intersects(this.pos,player.getPos());
     }
 
     @Override

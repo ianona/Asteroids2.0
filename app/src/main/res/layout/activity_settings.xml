@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".SettingsActivity">
+
+    <TextView
+        android:id="@+id/mapText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="28dp"
+        android:text="Map"
+        android:textSize="60sp"
+        android:padding="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/spaceshipText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Space Ship"
+        android:textSize="60sp"
+        android:padding="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/mapOption2" />
+
+    <ImageButton
+        android:id="@+id/mapOption2"
+        android:layout_width="98dp"
+        android:layout_height="145dp"
+        android:layout_marginEnd="15dp"
+        android:layout_marginStart="15dp"
+        android:scaleType="fitXY"
+        app:layout_constraintEnd_toStartOf="@+id/mapOption3"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/mapOption1"
+        app:layout_constraintTop_toBottomOf="@+id/mapText"
+        app:srcCompat="@drawable/map2" />
+
+    <ImageButton
+        android:id="@+id/mapOption3"
+        android:layout_width="98dp"
+        android:layout_height="145dp"
+        android:layout_marginEnd="30dp"
+        android:scaleType="fitXY"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/mapOption2"
+        app:srcCompat="@drawable/map3" />
+
+    <ImageButton
+        android:id="@+id/mapOption1"
+        android:layout_width="98dp"
+        android:layout_height="145dp"
+        android:layout_marginStart="30dp"
+        android:background="@drawable/customborder"
+        android:scaleType="fitXY"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/mapOption2"
+        app:srcCompat="@drawable/map1" />
+
+    <ImageButton
+        android:id="@+id/spaceOption2"
+        android:layout_width="98dp"
+        android:layout_height="105dp"
+        android:layout_marginEnd="15dp"
+        android:layout_marginStart="15dp"
+        android:scaleType="fitXY"
+        app:layout_constraintEnd_toStartOf="@+id/spaceOption3"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/spaceOption1"
+        app:layout_constraintTop_toBottomOf="@+id/spaceshipText"
+        app:srcCompat="@drawable/space2" />
+
+    <TextView
+        android:id="@+id/tiltText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="1dp"
+        android:text="Tilt Options"
+        android:textSize="60sp"
+        android:padding="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/spaceOption2" />
+
+    <ImageButton
+        android:id="@+id/spaceOption3"
+        android:layout_width="98dp"
+        android:layout_height="105dp"
+        android:layout_marginEnd="30dp"
+        android:scaleType="fitXY"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/spaceshipText"
+        app:srcCompat="@drawable/space3" />
+
+    <ImageButton
+        android:id="@+id/tiltOption1"
+        android:layout_width="98dp"
+        android:layout_height="105dp"
+        android:layout_marginStart="30dp"
+        android:background="@drawable/customborder"
+        android:scaleType="fitXY"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tiltText"
+        app:srcCompat="@drawable/tilt1" />
+
+    <ImageButton
+        android:id="@+id/tiltOption3"
+        android:layout_width="98dp"
+        android:layout_height="105dp"
+        android:layout_marginEnd="30dp"
+        android:scaleType="fitXY"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tiltText"
+        app:srcCompat="@drawable/tilt3" />
+
+    <ImageButton
+        android:id="@+id/tiltOption2"
+        android:layout_width="98dp"
+        android:layout_height="105dp"
+        android:layout_marginEnd="15dp"
+        android:layout_marginStart="15dp"
+        android:scaleType="fitXY"
+        app:layout_constraintEnd_toStartOf="@+id/tiltOption3"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/tiltOption1"
+        app:layout_constraintTop_toBottomOf="@+id/tiltText"
+        app:srcCompat="@drawable/tilt2" />
+
+    <ImageButton
+        android:id="@+id/spaceOption1"
+        android:layout_width="98dp"
+        android:layout_height="105dp"
+        android:layout_marginStart="30dp"
+        android:background="@drawable/customborder"
+        android:scaleType="fitXY"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/spaceshipText"
+        app:srcCompat="@drawable/space1" />
+
+    <Button
+        android:id="@+id/settings_cancelBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="64dp"
+        android:layout_marginTop="20dp"
+        android:onClick="cancel"
+        android:text="Cancel"
+        android:textSize="50sp"
+        app:layout_constraintEnd_toStartOf="@+id/settings_saveBtn"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tiltOption2" />
+
+    <Button
+        android:id="@+id/settings_saveBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="64dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="20dp"
+        android:onClick="save"
+        android:text="Save"
+        android:textSize="50sp"
+        android:backgroundTint="@color/colorSave"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/settings_cancelBtn"
+        app:layout_constraintTop_toBottomOf="@+id/tiltOption2" />
+
+
+</android.support.constraint.ConstraintLayout>

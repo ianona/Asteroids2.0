@@ -72,6 +72,14 @@ public abstract class Asteroid implements GameObject {
         return health;
     }
 
+    public void receiveDamage (int dmg) {
+        health -= dmg;
+    }
+
+    public int getAsteroidType() {
+        return asteroidType;
+    }
+
     public void incrementY (float y) {
         pos.top +=y;
         pos.bottom +=y;

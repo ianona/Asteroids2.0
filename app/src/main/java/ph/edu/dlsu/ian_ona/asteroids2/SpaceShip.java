@@ -71,6 +71,7 @@ public class SpaceShip implements GameObject {
         Rect healthBar = new Rect(0,Constants.SCREEN_HEIGHT-30,(int)((health/100.0) * Constants.SCREEN_WIDTH), Constants.SCREEN_HEIGHT);
         p.setColor(Color.GREEN);
         canvas.drawRect(healthBar,p);
+        p = null;
     }
 
     @Override

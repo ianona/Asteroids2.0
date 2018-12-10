@@ -31,10 +31,23 @@ The flow of the game is, the user starts with main menu and touches start then t
 
 1. ASCII art used above retrieved from https://www.asciiart.eu/space/planets
 2. Spaceship sprites retrieved from
+	-https://pbs.twimg.com/media/BuEGY5gIQAAEuZd.png:large
+	-http://www.pixeljoint.com/files/icons/full/spaceshipsprites.gif
+	-https://static.wixstatic.com/media/8e6cbc_e1934eedc9754b3d864a5dcca4d8ab42.png/v1/fill/w_1024,h_256,al_c,q_90/8e6cbc_e1934eedc9754b3d864a5dcca4d8ab42.webp
 3. Ammunition sprites retrieved from
+	-http://www.pixeljoint.com/files/icons/full/spaceshipsprites.gif
 4. Asteroid sprites retrieved from
+	-http://www.pixeljoint.com/files/icons/full/spaceshipsprites.gif
 5. Music retrieved from
+	-https://darnuweb.blogspot.com/p/8-bits.html
 6. Sound effects retrieved from
+7. Miscellaneous sprites retrieved from
+	-https://www.vectorstock.com/royalty-free-vector/pixel-star-icon-gold-pixel-star-vector-15459734
+	-http://isource.com/wp-content/uploads/2010/02/tilt-to-live-2.png
+8. Background sprites retrieved from
+	-https://cdn.hipwallpaper.com/i/34/18/472L6i.jpg
+	-https://www.spriters-resource.com/resources/sheets/2/1446.png
+	-https://i.pinimg.com/474x/01/30/28/01302876f433aeec4d4361e6257a60c4---bit-pixel-art-bit-art.jpg
 
 Spritesheets made by Won Suk Cho & Ian Ona
 

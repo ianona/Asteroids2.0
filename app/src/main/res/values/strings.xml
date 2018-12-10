@@ -1,3 +1,27 @@
 <resources>
     <string name="app_name">Asteroids2</string>
+    <string name="pref_username">USERNAME</string>
+    <string name="pref_highscore1">HIGHSCORE1</string>
+    <string name="pref_highscore2">HIGHSCORE2</string>
+    <string name="pref_highscore3">HIGHSCORE3</string>
+    <string name="pref_highscore4">HIGHSCORE4</string>
+    <string name="pref_highscore5">HIGHSCORE5</string>
+    <string name="pref_background">BACKGROUND</string>
+    <string name="pref_sound">SOUNDPREF</string>
+    <string name="pref_motion">MOTIONSENSOR</string>
+    <string name="pref_spaceship">SPACESHIP</string>
+    <string name="map1">MAP1</string>
+    <string name="map2">MAP2</string>
+    <string name="map3">MAP3</string>
+    <string name="space1">SPACE1</string>
+    <string name="space2">SPACE2</string>
+    <string name="space3">SPACE3</string>
+    <string name="tilt1">TILT1</string>
+    <string name="tilt2">TILT2</string>
+    <string name="tilt3">TILT3</string>
+    <string name="easterEgg1">IAN</string>
+    <string name="easterEgg2">CHO</string>
+    <string name="easterEgg3">AARON</string>
+    <string name="sound">SOUND</string>
+    <string name="mute">MUTE</string>
 </resources>
