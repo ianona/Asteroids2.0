@@ -203,6 +203,10 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
         //return super.onTouchEvent(event);
     }
 
+    public boolean isGameOver() {
+        return gameOver;
+    }
+
     public void update(){
         if (!gameOver && !paused) {
             if (frameTime < Constants.INIT_TIME)
@@ -284,7 +288,6 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
 
     public void pause(){
         if (!gameOver){
-            mainMenu.musicService.pauseMusic();
             paused = true;
             asteroidManager.pause();
         }

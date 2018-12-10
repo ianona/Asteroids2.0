@@ -22,11 +22,14 @@ public class GameActivity extends Activity {
     @Override
     public void onResume(){
         super.onResume();
+        if (gamePanel.isGameOver())
+            ((MainActivity)(Constants.MAIN_CONTEXT)).musicService.playMusic();
     }
 
     @Override
     public void onPause(){
         super.onPause();
+        ((MainActivity)(Constants.MAIN_CONTEXT)).musicService.pauseMusic();
         gamePanel.pause();
     }
 
