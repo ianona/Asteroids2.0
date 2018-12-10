@@ -88,16 +88,7 @@ public class MainActivity extends AppCompatActivity {
 
         playButton.startAnimation(myAnim);
 
-        /*
-        try {
-            //delay 1 seconds
-            Thread.sleep(1000);
-
-            startGame(view);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-         */
+        startGame(view);
     }
 
     public void startGame(View view){
@@ -119,6 +110,19 @@ public class MainActivity extends AppCompatActivity {
             Intent intent = new Intent(getApplicationContext(), GameActivity.class);
             MainActivity.this.startActivity(intent);
         }
+    }
+
+    public void didTapButton1(View view) {
+        ImageButton settingButton = findViewById(R.id.settingButton);
+        final Animation myAnim = AnimationUtils.loadAnimation(this, R.anim.bounce);
+
+        // Use bounce interpolator with amplitude 0.2 and frequency 20
+        MyBounceInterpolator interpolator = new MyBounceInterpolator(0.1, 5);
+        myAnim.setInterpolator(interpolator);
+
+        settingButton.startAnimation(myAnim);
+
+        gotoSettings(view);
     }
 
     public void gotoSettings(View view){

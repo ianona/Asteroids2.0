@@ -69,7 +69,7 @@
         android:adjustViewBounds="true"
         android:background="@android:color/transparent"
         android:cropToPadding="false"
-        android:onClick="gotoSettings"
+        android:onClick="didTapButton1"
         android:scaleType="fitXY"
         android:src="@drawable/tool"
         app:layout_constraintBottom_toBottomOf="parent"
