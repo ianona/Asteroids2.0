@@ -83,11 +83,21 @@ public class MainActivity extends AppCompatActivity {
         final Animation myAnim = AnimationUtils.loadAnimation(this, R.anim.bounce);
 
         // Use bounce interpolator with amplitude 0.2 and frequency 20
-        MyBounceInterpolator interpolator = new MyBounceInterpolator(0.2, 20);
+        MyBounceInterpolator interpolator = new MyBounceInterpolator(0.1, 5);
         myAnim.setInterpolator(interpolator);
 
         playButton.startAnimation(myAnim);
 
+        /*
+        try {
+            //delay 1 seconds
+            Thread.sleep(1000);
+
+            startGame(view);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+         */
     }
 
     public void startGame(View view){
