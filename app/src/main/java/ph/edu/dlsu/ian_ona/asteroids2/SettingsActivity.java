@@ -8,6 +8,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -229,5 +231,31 @@ public class SettingsActivity extends AppCompatActivity {
         Intent intent = new Intent(getApplicationContext(), MainActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         SettingsActivity.this.startActivity(intent);
+    }
+
+    public void didTapButton(View view) {
+        Button Button = findViewById(R.id.settings_saveBtn);
+        final Animation myAnim = AnimationUtils.loadAnimation(this, R.anim.bounce);
+
+        // Use bounce interpolator with amplitude 0.2 and frequency 20
+        MyBounceInterpolator interpolator = new MyBounceInterpolator(0.1, 5);
+        myAnim.setInterpolator(interpolator);
+
+        Button.startAnimation(myAnim);
+
+        save(view);
+    }
+
+    public void didTapButton1(View view) {
+        Button Button = findViewById(R.id.settings_cancelBtn);
+        final Animation myAnim = AnimationUtils.loadAnimation(this, R.anim.bounce);
+
+        // Use bounce interpolator with amplitude 0.2 and frequency 20
+        MyBounceInterpolator interpolator = new MyBounceInterpolator(0.1, 5);
+        myAnim.setInterpolator(interpolator);
+
+        Button.startAnimation(myAnim);
+
+        cancel(view);
     }
 }
