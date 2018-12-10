@@ -134,6 +134,19 @@ public class MainActivity extends AppCompatActivity {
         MainActivity.this.startActivity(intent);
     }
 
+    public void didTapButton2(View view) {
+        ImageButton soundButton = findViewById(R.id.soundButton);
+        final Animation myAnim = AnimationUtils.loadAnimation(this, R.anim.bounce);
+
+        // Use bounce interpolator with amplitude 0.2 and frequency 20
+        MyBounceInterpolator interpolator = new MyBounceInterpolator(0.1, 5);
+        myAnim.setInterpolator(interpolator);
+
+        soundButton.startAnimation(myAnim);
+
+        toggleSound(view);
+    }
+
     public void toggleSound(View view){
         SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
         SharedPreferences.Editor editor = sharedPref.edit();

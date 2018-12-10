@@ -87,7 +87,7 @@
         android:adjustViewBounds="true"
         android:background="@android:color/transparent"
         android:cropToPadding="false"
-        android:onClick="toggleSound"
+        android:onClick="didTapButton2"
         android:scaleType="fitXY"
         android:src="@drawable/sound"
         app:layout_constraintBottom_toBottomOf="parent"
