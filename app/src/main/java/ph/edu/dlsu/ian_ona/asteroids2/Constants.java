@@ -12,6 +12,7 @@ public class Constants {
     public static long INIT_TIME;
     public static Typeface PIXEL_FONT;
     public static int HIGHSCORES;
+    public static boolean MUTE;
 
     public static String getTAG(Object o) {
         StackTraceElement[] elements = Thread.currentThread().getStackTrace();

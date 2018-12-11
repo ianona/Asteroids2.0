@@ -30,6 +30,15 @@ public class SoundEffects{
         medialist.add(mp);
         mp = MediaPlayer.create(context, R.raw.spaceshiphit);
         medialist.add(mp);
+
+        if (Constants.MUTE)
+            muteMedia();
+    }
+
+    public void muteMedia(){
+        for (MediaPlayer mp: medialist){
+            mp.setVolume(0,0);
+        }
     }
 
     public void playLaser(){

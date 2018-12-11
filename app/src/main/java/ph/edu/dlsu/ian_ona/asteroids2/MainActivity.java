@@ -154,10 +154,12 @@ public class MainActivity extends AppCompatActivity {
             soundBtn.setImageResource(R.drawable.nosound);
             soundBtn.setTag(R.drawable.nosound);
             editor.putString(getString(R.string.pref_sound), getString(R.string.mute));
+            Constants.MUTE = true;
         } else {
             soundBtn.setImageResource(R.drawable.sound);
             soundBtn.setTag(R.drawable.sound);
             editor.putString(getString(R.string.pref_sound), getString(R.string.sound));
+            Constants.MUTE = false;
         }
         editor.commit();
     }
@@ -260,9 +262,11 @@ public class MainActivity extends AppCompatActivity {
         if (soundPref.equalsIgnoreCase(getString(R.string.sound))){
             soundBtn.setImageResource(R.drawable.sound);
             soundBtn.setTag(R.drawable.sound);
+            Constants.MUTE = false;
         } else {
             soundBtn.setImageResource(R.drawable.nosound);
             soundBtn.setTag(R.drawable.nosound);
+            Constants.MUTE = true;
         }
 
         // initializes in-game arrays based on current preferences
