@@ -15,7 +15,8 @@ public class SmallAsteroid extends Asteroid {
     public SmallAsteroid(int x, int y, Bitmap bmp, int asteroidType) {
         super(bmp,asteroidType);
 
-        health = 15;
+        reload = 1;
+        health = 15 * reload;
         damage = 15;
         // for small asteroids
         width = bmp.getWidth()/6;

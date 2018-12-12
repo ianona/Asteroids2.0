@@ -23,6 +23,7 @@ public abstract class Asteroid implements GameObject {
     protected boolean exploded = false;
     protected long explodeTime;
     protected float speed;
+    protected int reload;
 
     protected Asteroid(Bitmap bmp, int asteroidType){
         this.bmp = bmp;
@@ -134,6 +135,10 @@ public abstract class Asteroid implements GameObject {
         src = new Rect(srcX,srcY,srcX+ width,srcY+height);
         pos.set(pos.left,pos.top,pos.left+width,pos.top+height);
         explodeTime = System.currentTimeMillis();
+    }
+
+    public int getReload() {
+        return reload;
     }
 
     @Override

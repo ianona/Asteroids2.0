@@ -70,6 +70,7 @@ public class AsteroidManager {
                 if (a.getHealth() <= 0) {
                     a.explode();
                     a.setExploded(true);
+                    increaseScore(a.getReload());
                     switch (a.getAsteroidType()){
                         case 1:
                             se.playLargeExplosion();
@@ -166,6 +167,10 @@ public class AsteroidManager {
 
     public void decrementScore(){
         score--;
+    }
+
+    public void increaseScore(int inc){
+        score+=inc;
     }
 
     public void setGameOver(boolean b){

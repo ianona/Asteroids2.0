@@ -7,7 +7,8 @@ public class LargeAsteroid extends Asteroid{
     protected LargeAsteroid(int x, int y, Bitmap bmp, int asteroidType) {
         super(bmp, asteroidType);
 
-        health = 15 * 10;
+        reload = 10;
+        health = 15 * reload;
         damage = 60;
         // for medium asteroids
         width = bmp.getWidth()/2;

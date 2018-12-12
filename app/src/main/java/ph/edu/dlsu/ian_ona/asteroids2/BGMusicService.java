@@ -35,7 +35,7 @@ public class BGMusicService extends Service {
         else if (username != null && username.equalsIgnoreCase(getString(R.string.easterEgg2)))
             player = MediaPlayer.create(this, R.raw.stars);
         else if (username != null && username.equalsIgnoreCase(getString(R.string.easterEgg3)))
-            player = MediaPlayer.create(this, R.raw.yes);
+            player = MediaPlayer.create(this, R.raw.budots);
         else player = MediaPlayer.create(this, R.raw.bitsong);
     }
 
